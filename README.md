@@ -1,3 +1,5 @@
+aiprint
+---
 A package for `print` with smart features.
 * Highlight keywords
 * Colorcode base on conditions
