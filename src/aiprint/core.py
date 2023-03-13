@@ -1,4 +1,6 @@
 """Core functions"""
+from typing import Any
+
 import pandas as pd
 from termcolor import colored
 
@@ -76,3 +78,9 @@ def highlight_text(data: dict, key: str):
     status = extract_status(data_str, pattern)
     filled_pattern = pattern.replace("(\w+)", status)
     print(add_color(data_str, filled_pattern, status))
+
+
+def cprint(data: Any, key: str):
+    """print with colorcode for queried key"""
+    mapper = {pd.DataFrame: hightlight_dataframe, dict: highlight_dict, str: highlight_text}
+    mapper[type(data)](data, key)
