@@ -7,6 +7,7 @@ from termcolor import colored
 
 
 def str2bool(v):
+    """convert string to boolean"""
     return v.lower() in ("yes", "true", "t", "1")
 
 
