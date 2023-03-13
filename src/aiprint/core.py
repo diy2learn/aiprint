@@ -61,3 +61,19 @@ def highlight_dict(data: dict, key: str):
     status = extract_status(data_str, pattern)
     filled_pattern = pattern.replace("(\w+)", status)
     print(add_color(data_str, filled_pattern, status))
+
+
+def highlight_text(data: dict, key: str):
+    """Highlight a given field of the dictionary
+
+    Examples
+    --------
+    logs = "Model status: failed. Cause: corrupted input data.
+            All-other-related-stuffs"
+    highlight_text(logs, "status")
+    """
+    data_str = str(data).replace("'", '"')
+    pattern = f"{key}: (\w+)"
+    status = extract_status(data_str, pattern)
+    filled_pattern = pattern.replace("(\w+)", status)
+    print(add_color(data_str, filled_pattern, status))
