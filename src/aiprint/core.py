@@ -57,7 +57,6 @@ def highlight_dict(data: dict, key: str):
     """
     data_str = str(data).replace("'", '"')
     pattern = f'"{key}": (\w+)'
-    print("pattern: ", pattern)
     status = extract_status(data_str, pattern)
     filled_pattern = pattern.replace("(\w+)", status)
     print(add_color(data_str, filled_pattern, status))
