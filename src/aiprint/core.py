@@ -2,6 +2,8 @@
 import pandas as pd
 from termcolor import colored
 
+from aiprint.helper import add_color, extract_status
+
 
 def hightlight_dataframe(data: pd.DataFrame, condition: str, color: str = "red"):
     """Highlight rows in a dataframe based-on a given condition
@@ -42,3 +44,20 @@ def hightlight_dataframe(data: pd.DataFrame, condition: str, color: str = "red")
             lines[idx_line] = colored(lines[idx_line], color)
         colored_lines.append("\n".join(lines))
     print("\n\n".join(colored_lines))
+
+
+def highlight_dict(data: dict, key: str):
+    """Highlight a given field of the dictionary
+
+    Examples
+    --------
+    data = {"success": False,
+            "other_field": 123}
+    highlight_dict(data, "success")
+    """
+    data_str = str(data).replace("'", '"')
+    pattern = f'"{key}": (\w+)'
+    print("pattern: ", pattern)
+    status = extract_status(data_str, pattern)
+    filled_pattern = pattern.replace("(\w+)", status)
+    print(add_color(data_str, filled_pattern, status))
