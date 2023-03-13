@@ -1,6 +1,6 @@
 import pandas as pd
 
-from aiprint.core import highlight_dict, hightlight_dataframe
+from aiprint.core import highlight_dict, highlight_text, hightlight_dataframe
 
 
 def test_hightlight_dataframe():
@@ -15,3 +15,8 @@ def test_hightlight_dataframe():
 def test_highlight_dict():
     data = {"success": False, "other_field": 123}
     highlight_dict(data, "success")
+
+
+def test_highlight_text():
+    logs = "Model status: failed. Cause: corrupted input data. All-other-related-stuffs"
+    highlight_text(logs, "status")
