@@ -58,7 +58,7 @@ def highlight_dict(data: dict, key: str):
     highlight_dict(data, "success")
     """
     data_str = str(data).replace("'", '"')
-    pattern = f'"{key}": (\w+)'
+    pattern = f'"{key}":\s?(\w+)'
     status = extract_status(data_str, pattern)
     filled_pattern = pattern.replace("(\w+)", status)
     print(add_color(data_str, filled_pattern, status))
@@ -74,7 +74,7 @@ def highlight_text(data: dict, key: str):
     highlight_text(logs, "status")
     """
     data_str = str(data).replace("'", '"')
-    pattern = f"{key}: (\w+)"
+    pattern = f"{key}:\s?(\w+)"
     status = extract_status(data_str, pattern)
     filled_pattern = pattern.replace("(\w+)", status)
     print(add_color(data_str, filled_pattern, status))
