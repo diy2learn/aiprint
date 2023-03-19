@@ -1,6 +1,3 @@
-.DEFAULT_GOAL := help
-.PHONY: coverage deps help lint publish push test
-
 SRC_DIR = src
 TEST_DIR = tests
 
