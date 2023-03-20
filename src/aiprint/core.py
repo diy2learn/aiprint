@@ -65,7 +65,7 @@ def highlight_dict(data: dict, key: str):
         status = extract_status(data_str, pattern)
         filled_pattern = pattern.replace(to_extract, status)
         print(add_color(data_str, filled_pattern, status))
-    except TypeError as emsg:
+    except TypeError:
         logger.debug("in dict-item highlight mode.")
         highlight_dict_item(data, key)
 
