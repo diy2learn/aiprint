@@ -74,7 +74,7 @@ def highlight_dict_item(data: dict, key: str, color: str = "yellow"):
     """Highlight a given item of the dictionary"""
     data_str = str(data)
     item = data[key]
-    to_colors = [key, str(item)]
+    to_colors = [f"'{key}':", str(item)]
     colored_text = [colored(txt, color) for txt in to_colors]
     mapper = zip(to_colors, colored_text)
     for to_color, colored_txt in mapper:
