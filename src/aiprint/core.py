@@ -59,10 +59,11 @@ def highlight_dict(data: dict, key: str):
     highlight_dict(data, "success")
     """
     data_str = str(data).replace("'", '"')
-    pattern = f'"{key}":(\s?\w+)'
+    to_extract = "(\s?\w+)"
+    pattern = f'"{key}":{to_extract}'
     try:
         status = extract_status(data_str, pattern)
-        filled_pattern = pattern.replace("(\s?\w+)", status)
+        filled_pattern = pattern.replace(to_extract, status)
         print(add_color(data_str, filled_pattern, status))
     except TypeError as emsg:
         logger.debug("in dict-item highlight mode.")
@@ -91,9 +92,10 @@ def highlight_text(data: dict, key: str):
     highlight_text(logs, "status")
     """
     data_str = str(data).replace("'", '"')
-    pattern = f"{key}:(\s?\w+)"
+    to_extract = "(\s?\w+)"
+    pattern = f"{key}:{to_extract}"
     status = extract_status(data_str, pattern)
-    filled_pattern = pattern.replace("(\s?\w+)", status)
+    filled_pattern = pattern.replace(to_extract, status)
     print(add_color(data_str, filled_pattern, status))
 
 
