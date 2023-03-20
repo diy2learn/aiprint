@@ -3,12 +3,13 @@
 
 import re
 
+from logzero import logger
 from termcolor import colored
 
 
 def str2bool(v):
     """convert string to boolean"""
-    return v.lower() in ("yes", "true", "t", "1")
+    return v.strip().lower() in ("yes", "true", "t", "1", "ok")
 
 
 def extract_status(data_str: str, pattern: str):
@@ -21,7 +22,7 @@ def extract_status(data_str: str, pattern: str):
     """
     extracted = re.findall(pattern, data_str)
     if len(extracted) == 0:
-        print(colored("Can not find pattern to highlight", "red"))
+        logger.debug("Can not extract status from key")
     else:
         return extracted[0]
 
