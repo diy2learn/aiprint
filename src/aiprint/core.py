@@ -2,6 +2,7 @@
 from typing import Any
 
 import pandas as pd
+from logzero import logger
 from termcolor import colored
 
 from aiprint.helper import add_color, extract_status
@@ -59,9 +60,25 @@ def highlight_dict(data: dict, key: str):
     """
     data_str = str(data).replace("'", '"')
     pattern = f'"{key}":\s?(\w+)'
-    status = extract_status(data_str, pattern)
-    filled_pattern = pattern.replace("(\w+)", status)
-    print(add_color(data_str, filled_pattern, status))
+    try:
+        status = extract_status(data_str, pattern)
+        filled_pattern = pattern.replace("(\w+)", status)
+        print(add_color(data_str, filled_pattern, status))
+    except TypeError as emsg:
+        logger.debug("in dict-item highlight mode.")
+        highlight_dict_item(data, key)
+
+
+def highlight_dict_item(data: dict, key: str, color: str = "yellow"):
+    """Highlight a given item of the dictionary"""
+    data_str = str(data)
+    item = data[key]
+    to_colors = [key, str(item)]
+    colored_text = [colored(txt, color) for txt in to_colors]
+    mapper = zip(to_colors, colored_text)
+    for to_color, colored_txt in mapper:
+        data_str = data_str.replace(to_color, colored_txt)
+    print(data_str)
 
 
 def highlight_text(data: dict, key: str):
