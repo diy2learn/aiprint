@@ -92,11 +92,29 @@ def highlight_text(data: dict, key: str):
     highlight_text(logs, "status")
     """
     data_str = str(data).replace("'", '"')
+    """
     to_extract = "(\s?\w+)"
-    pattern = f"{key}:{to_extract}"
-    status = extract_status(data_str, pattern)
-    filled_pattern = pattern.replace(to_extract, status)
+    sep = "\s?[:=]"
+    pattern = f"{key}{sep}{to_extract}"
+    print("pattern: ", pattern)
+    """
+    to_extract = "\w+"
+    sep = "[:=]?"
+    query = f"(\s?{sep}\s?{to_extract})"
+    pattern = f"{key}{query}"
+    extracted = extract_status(data_str, pattern)
+    status = split_status(extracted, [":", "="])
+    filled_pattern = pattern.replace(query, extracted)
     print(add_color(data_str, filled_pattern, status))
+
+
+def split_status(text: str, separators: None):
+    """Split status from `sep`"""
+    default_seps = [":", "="]
+    seps = separators if separators else default_seps
+    for sep in seps:
+        text = text.split(sep)[-1]
+    return text
 
 
 def cprint(data: Any, key: str):
