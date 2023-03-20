@@ -92,12 +92,6 @@ def highlight_text(data: dict, key: str):
     highlight_text(logs, "status")
     """
     data_str = str(data).replace("'", '"')
-    """
-    to_extract = "(\s?\w+)"
-    sep = "\s?[:=]"
-    pattern = f"{key}{sep}{to_extract}"
-    print("pattern: ", pattern)
-    """
     to_extract = "\w+"
     sep = "[:=]?"
     query = f"(\s?{sep}\s?{to_extract})"
